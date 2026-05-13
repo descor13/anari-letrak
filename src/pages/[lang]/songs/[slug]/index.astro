@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Header from '../../../../components/Header.astro';
+import { albums, slugify } from '../../../../data/albums.js';
+
+export async function getStaticPaths() {
+  const coverByAlbum = {
+    'Anari': '/covers/anari.jpg',
+    'Habiak': '/covers/habiak.jpg',
+    'Zebra': '/covers/zebra.jpg',
+    'Irla Izan': '/covers/irla-izan.jpg',
+    'Bidea eta Denbora': '/covers/bidea-eta-denbora.jpg',
+    'Zure Aurrekari Penalak': '/covers/zure-aurrekari-penalak.jpg',
+    'Epilogo bat': '/covers/epilogo-bat.jpg',
+    'Giza zarata': '/covers/giza-zarata.jpg',
+    'TXIKIZIO HAU DENA': '/covers/txikizio-hau-dena.jpg'
+  };
+
+  const songs = albums.flatMap((album) =>
+    album.tracks.map((track) => ({
+      title: track,
+      album: album.title,
+      year: album.year,
+      slug: slugify(track),
+      cover: coverByAlbum[album.title] || '/covers/default.jpg'
+    }))
+  );
+
+  const songsWithNavigation = songs.map((song, index) => ({
+    ...song,
+    previous: index > 0 ? songs[index - 1] : null,
+    next: index < songs.length - 1 ? songs[index + 1] : null
+  }));
+
+  return ['eu', 'es'].flatMap((lang) =>
+    songsWithNavigation.map((song) => ({
+      params: { lang, slug: song.slug },
+      props: { song }
+    }))
+  );
+}
+
+const { lang, slug } = Astro.params;
+const { song } = Astro.props;
+
+const entries = await getCollection('songs');
+const entry = entries.find((item) => {
+  const entrySlug = item.data.slug || item.slug || item.id?.replace(/\.md$/, '');
+  return entrySlug === slug;
+});
+
+const Content = entry ? (await entry.render()).Content : null;
+
+const copy = {
+  eu: {
+    back: '← Diskoetara itzuli',
+    previous: '← Aurrekoa',
+    next: 'Hurrengoa →',
+    pending: 'Letra oraindik ez dago kargatuta. Gehitu Markdown fitxategia src/content/songs karpetan.',
+    legal: 'Oharra: gehitu soilik argitaratzeko baimena duten letrak edo itzulpenak.'
+  },
+  es: {
+    back: '← Volver a discos',
+    previous: '← Anterior',
+    next: 'Siguiente →',
+    pending: 'La letra aún no está cargada. Añade un archivo Markdown en src/content/songs.',
+    legal: 'Nota: añade únicamente letras o traducciones con permiso de publicación.'
+  }
+};
+---
+
+<BaseLayout title={`${song.title} · Anari`}>
+  <Header currentLang={lang} />
+
+  <main class="lyric-page">
+    <a href={`/${lang}/`} class="album-meta">
+      {copy[lang].back}
+    </a>
+
+    <img
+      src={song.cover}
+      alt={`Portada de ${song.album}`}
+      class="song-cover"
+    />
+
+    <article>
+      <h1 class="lyric-title">
+        {song.title}
+      </h1>
+
+      <p class="lyric-meta">
+        {song.album} · {song.year}
+      </p>
+
+      <div class="lyric-content lyrics">
+        {Content ? <Content /> : <p>{copy[lang].pending}</p>}
+      </div>
+    </article>
+
+    <p class="lyric-legal">
+      {copy[lang].legal}
+    </p>
+
+    <nav class="song-navigation">
+      {song.previous && (
+        <a href={`/${lang}/songs/${song.previous.slug}/`}>
+          <span>{copy[lang].previous}</span>
+          <strong>{song.previous.title}</strong>
+        </a>
+      )}
+
+      {song.next && (
+        <a href={`/${lang}/songs/${song.next.slug}/`}>
+          <span>{copy[lang].next}</span>
+          <strong>{song.next.title}</strong>
+        </a>
+      )}
+    </nav>
+  </main>
+</BaseLayout>

@@ -1,0 +1,94 @@
+---
+import { albums, slugify } from '../data/albums.js';
+
+const { lang = 'eu' } = Astro.props;
+
+const copy = {
+  eu: {
+    title: 'Diskoak',
+    pending: 'Tracklist-a osatu gabe dago.',
+    search: 'Bilatu'
+  },
+  es: {
+    title: 'Discos',
+    pending: 'Tracklist pendiente de completar.',
+    search: 'Buscar'
+  }
+};
+---
+
+<section>
+  <div class="site-header" style="padding-top:0;">
+    <div>{copy[lang].title}</div>
+
+    <input
+      id="song-search"
+      placeholder={copy[lang].search}
+      style="
+        border:none;
+        border-bottom:1px solid #d8d0c4;
+        background:transparent;
+        padding:6px 0;
+        font:inherit;
+        outline:none;
+      "
+    />
+  </div>
+
+  <div id="album-list">
+    {albums.map((album) => (
+      <article
+        class="album"
+        data-album={`${album.title} ${album.year} ${album.tracks.join(' ')}`.toLowerCase()}
+      >
+        <div class="album-meta">
+          <div>{album.year}</div>
+          <div style="margin-top:8px;">{album.label}</div>
+        </div>
+
+        <div>
+          <h2 class="album-title">
+            {album.title}
+          </h2>
+
+          {album.tracks.length ? (
+            <ul class="song-list">
+              {album.tracks.map((track) => (
+                <li>
+                  <a
+                    href={`/${lang}/songs/${slugify(track)}/`}
+                    data-title={track.toLowerCase()}
+                  >
+                    {track}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="album-meta">
+              {copy[lang].pending}
+            </p>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<script>
+  const input = document.querySelector('#song-search');
+  const albums = Array.from(document.querySelectorAll('.album'));
+
+  input?.addEventListener('input', (event) => {
+    const query = event.target.value.trim().toLowerCase();
+
+    albums.forEach((album) => {
+      const haystack = album.getAttribute('data-album') || '';
+
+      album.style.display =
+        !query || haystack.includes(query)
+          ? 'grid'
+          : 'none';
+    });
+  });
+</script>

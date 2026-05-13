@@ -1,0 +1,40 @@
+---
+const { lang = 'eu' } = Astro.props;
+
+const copy = {
+  eu: {
+    subtitle: 'Kantuen hitzak eta isiltasuna.',
+    web: 'web',
+    bandcamp: 'bandcamp'
+  },
+  es: {
+    subtitle: 'Palabra, ruido y silencio.',
+    web: 'web',
+    bandcamp: 'bandcamp'
+  }
+};
+---
+
+<section>
+  <h1 class="site-title">
+    ANARI
+  </h1>
+
+  <div class="hero-image">
+  <img src="/images/anari-home.jpg" alt="Anari" />
+</div>
+
+  <div class="site-header">
+    <p>{copy[lang].subtitle}</p>
+
+    <div style="display:flex; gap:18px;">
+      <a href="https://anari.eus/">
+        {copy[lang].web}
+      </a>
+
+      <a href="https://anari.bandcamp.com/">
+        {copy[lang].bandcamp}
+      </a>
+    </div>
+  </div>
+</section>

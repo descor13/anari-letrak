@@ -1,0 +1,15 @@
+---
+const { currentLang = 'eu' } = Astro.props;
+const altLang = currentLang === 'eu' ? 'es' : 'eu';
+const labels = {
+  eu: { eyebrow: 'letrak / artxiboa', alt: 'ES' },
+  es: { eyebrow: 'letras / archivo', alt: 'EU' }
+};
+---
+<header class="mx-auto flex max-w-7xl items-center justify-between px-6 py-8">
+  <a href={`/${currentLang}/`} class="text-xs uppercase tracking-widest text-zinc-500">{labels[currentLang].eyebrow}</a>
+  <nav class="flex items-center gap-4 text-sm">
+    <a class="rounded-full bg-zinc-950 px-3 py-1 text-stone-100" href={`/${currentLang}/`}>{currentLang.toUpperCase()}</a>
+    <a class="rounded-full px-3 py-1 text-zinc-500 hover:bg-zinc-200" href={`/${altLang}/`}>{labels[currentLang].alt}</a>
+  </nav>
+</header>
