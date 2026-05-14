@@ -58,28 +58,27 @@ const copy = {
     previous: '← Aurrekoa',
     next: 'Hurrengoa →',
     pending: 'Letra oraindik ez dago kargatuta. Gehitu Markdown fitxategia src/content/songs karpetan.',
-    legal: 'Oharra: gehitu soilik argitaratzeko baimena duten letrak edo itzulpenak.'
+    legal: 'Oharra: XX.'
   },
   es: {
     back: '← Volver a discos',
     previous: '← Anterior',
     next: 'Siguiente →',
     pending: 'La letra aún no está cargada. Añade un archivo Markdown en src/content/songs.',
-    legal: 'Nota: añade únicamente letras o traducciones con permiso de publicación.'
+    legal: 'Nota: XX.'
   }
 };
 ---
-
 <BaseLayout title={`${song.title} · Anari`}>
   <Header currentLang={lang} />
 
   <main class="lyric-page">
-    <a href={`/${lang}/`} class="album-meta">
+    <a href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}${lang}/`} class="album-meta">
       {copy[lang].back}
     </a>
 
     <img
-      src={song.cover}
+      src={`${import.meta.env.BASE_URL}${song.cover.replace(/^\//, '')}`}
       alt={`Portada de ${song.album}`}
       class="song-cover"
     />
@@ -93,6 +92,23 @@ const copy = {
         {song.album} · {song.year}
       </p>
 
+      <p class="lyric-meta">
+        {song.album} · {song.year}
+      </p>
+
+{entry?.data.bandcamp_embed && (
+  <div class="bandcamp-embed">
+    <iframe
+      src={entry.data.bandcamp_embed}
+      seamless
+    />
+  </div>
+)}
+
+<div class="lyric-content lyrics">
+  {Content ? <Content /> : <p>{copy[lang].pending}</p>}
+</div>
+
       <div class="lyric-content lyrics">
         {Content ? <Content /> : <p>{copy[lang].pending}</p>}
       </div>
@@ -104,14 +120,14 @@ const copy = {
 
     <nav class="song-navigation">
       {song.previous && (
-        <a href={`/${lang}/songs/${song.previous.slug}/`}>
+        <a href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}${lang}/songs/${song.previous.slug}/`}>
           <span>{copy[lang].previous}</span>
           <strong>{song.previous.title}</strong>
         </a>
       )}
 
       {song.next && (
-        <a href={`/${lang}/songs/${song.next.slug}/`}>
+        <a href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}${lang}/songs/${song.next.slug}/`}>
           <span>{copy[lang].next}</span>
           <strong>{song.next.title}</strong>
         </a>

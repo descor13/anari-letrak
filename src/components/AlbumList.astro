@@ -56,7 +56,7 @@ const copy = {
               {album.tracks.map((track) => (
                 <li>
                   <a
-                    href={`/${lang}/songs/${slugify(track)}/`}
+                    href={`${import.meta.env.BASE_URL}${lang}/songs/${slugify(track)}/`}
                     data-title={track.toLowerCase()}
                   >
                     {track}

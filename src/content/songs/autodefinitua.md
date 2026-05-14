@@ -7,6 +7,11 @@ year: "2016"
 originalLang: "eu"
 translationLang: "es"
 badok_url: "https://www.badok.eus/euskal-musika/anari/epilogo-bat/hitzak/_autodefinitua"
+bandcamp_embed: "https://bandcamp.com/EmbeddedPlayer/track=1234567890/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/"
+
+---
+
+
 ---
 
 ## Euskara
