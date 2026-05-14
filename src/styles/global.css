@@ -422,10 +422,12 @@ main {
 .bandcamp-embed {
   margin: 48px 0 64px;
   opacity: 0.92;
-  filter: grayscale(1);
+
+  
 }
 
 .bandcamp-embed iframe {
+  display: block;
   width: 100%;
   height: 120px;
   border: 0;

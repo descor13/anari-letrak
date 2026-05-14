@@ -1,13 +1,9 @@
 ---
 title: "Autodefinitua"
 slug: "autodefinitua"
-artist: "Anari"
 album: "Epilogo Bat"
-year: "2016"
-originalLang: "eu"
-translationLang: "es"
-badok_url: "https://www.badok.eus/euskal-musika/anari/epilogo-bat/hitzak/_autodefinitua"
-bandcamp_embed: "https://bandcamp.com/EmbeddedPlayer/track=1234567890/size=large/bgcol=ffffff/linkcol=333333/artwork=none/transparent=true/"
+year: "2025"
+bandcamp_embed: "https://bandcamp.com/EmbeddedPlayer/album=59496613/size=large/bgcol=111111/linkcol=ffffff/track=3694731879/transparent=true/"
 
 ---
 
