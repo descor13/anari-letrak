@@ -51,7 +51,7 @@ export const albums = [
     title: 'TXIKIZIO HAU DENA',
     year: '2025',
     label: 'Bandcamp',
-    tracks: []
+    tracks: ['Txikizio hau dena']
   }
 ];
 
