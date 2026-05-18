@@ -39,13 +39,13 @@ export const albums = [
     title: 'Epilogo bat',
     year: '2016',
     label: 'Bidehuts',
-    tracks: ['Intro (Geure Alde)', 'Laugarren Azalberritzea', 'Parentesian Arteak', 'Autodefinitua', 'Piromania']
+    tracks: ['Intro (Geure Alde)', 'Laugarren Azalberritzea', 'Parentesian Arteak', 'Autodefinitua', 'Piromania', 'Epilogoa']
   },
   {
     title: 'Giza zarata',
     year: '2024',
     label: 'Bidehuts / Bandcamp',
-    tracks: ['Troiako Zaldia', 'Ez Nengoen Han', 'Tigrea', 'Kontinente Zaharra', 'Bunkerra I', 'Edertasun Arraroa']
+    tracks: ['Troiako Zaldia', 'Ez Nengoen Han', 'Tigrea', 'Kontinente Zaharra', 'Bunkerra I', 'Edertasun Arraroa', 'Bunkerra II', 'Inmolazioa', 'Vesna Vulovic', 'Giza Zarata']
   },
   {
     title: 'TXIKIZIO HAU DENA',
