@@ -1,6 +1,6 @@
 # Anari Letrak
 
-Web bilingüe minimalista para organizar discografía y letras autorizadas.
+Web bilingüe para organizar discografía y letras.
 
 ## Cómo verlo en tu ordenador
 
